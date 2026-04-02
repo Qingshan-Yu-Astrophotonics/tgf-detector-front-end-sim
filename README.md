@@ -93,10 +93,10 @@ pip install -r requirements.txt
 
 ### Run With Geant4 Output
 ```bash
-python python_engine/pulse_synthesizer.py \
-  --config config.yaml \
-  --input examples/generated/edep_events.csv \
-  --output-root python_engine/output \
+python python_engine/pulse_synthesizer.py
+  --config config.yaml
+  --input examples/generated/edep_events.csv
+  --output-root python_engine/output
   --all-rates
 ```
 
