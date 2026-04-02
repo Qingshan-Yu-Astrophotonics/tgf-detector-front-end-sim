@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)
 project(rf1105_geant4 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -18,6 +18,7 @@ add_executable(
   src/PhysicsList.cc
   src/PrimaryGeneratorAction.cc
   src/RunAction.cc
+  src/SimulationConfig.cc
   src/SteppingAction.cc
 )
 

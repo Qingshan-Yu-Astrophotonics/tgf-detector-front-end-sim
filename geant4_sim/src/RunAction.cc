@@ -1,4 +1,4 @@
-﻿#include "RunAction.hh"
+#include "RunAction.hh"
 
 #include <filesystem>
 #include <iomanip>
@@ -7,7 +7,8 @@
 
 #include "G4Run.hh"
 
-RF1105RunAction::RF1105RunAction(std::string output_path) : output_path_(std::move(output_path)) {}
+RF1105RunAction::RF1105RunAction(std::string output_path, bool write_timestamps)
+    : output_path_(std::move(output_path)), write_timestamps_(write_timestamps) {}
 
 RF1105RunAction::~RF1105RunAction() {
   if (output_stream_.is_open()) {
@@ -26,7 +27,11 @@ void RF1105RunAction::BeginOfRunAction(const G4Run*) {
     throw std::runtime_error("Unable to open output CSV file: " + output_path_);
   }
 
-  output_stream_ << "EventID,Edep_keV\n";
+  output_stream_ << "EventID,Edep_keV";
+  if (write_timestamps_) {
+    output_stream_ << ",t_ns";
+  }
+  output_stream_ << "\n";
   output_stream_ << std::fixed << std::setprecision(6);
 }
 
@@ -37,6 +42,14 @@ void RF1105RunAction::EndOfRunAction(const G4Run*) {
   }
 }
 
-void RF1105RunAction::WriteEvent(int event_id, double edep_keV) {
-  output_stream_ << event_id << "," << edep_keV << "\n";
+bool RF1105RunAction::WritesTimestamps() const {
+  return write_timestamps_;
+}
+
+void RF1105RunAction::WriteEvent(int event_id, double edep_keV, double t_ns) {
+  output_stream_ << event_id << "," << edep_keV;
+  if (write_timestamps_) {
+    output_stream_ << "," << t_ns;
+  }
+  output_stream_ << "\n";
 }

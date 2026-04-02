@@ -15,9 +15,24 @@ anode_output_polarity: positive
 dynode_output_polarity: positive
 
 physics:
+  source_mode: lab_mono
   source_energy_keV: 662.0
   primary_particle: gamma
   events_for_demo: 20000
+
+tgf_source:
+  enabled: false
+  source_altitude_m: 1000.0
+  cone_half_angle_deg: 15.0
+  spectrum_model: expcut_powerlaw
+  alpha: 1.0
+  Ec_MeV: 7.3
+  Emin_MeV: 0.2
+  Emax_MeV: 40.0
+  burst_duration_us: 100.0
+  timing_mode: none
+  world_half_height_m: 2.0
+  world_half_width_m: 0.5
 
 geometry:
   include_optional_housing: true
@@ -27,6 +42,7 @@ geometry:
   reflector_material: MgO
 
 python_engine:
+  arrival_mode: auto
   rate_sweep_cps:
     - 1.0e5
     - 5.0e5

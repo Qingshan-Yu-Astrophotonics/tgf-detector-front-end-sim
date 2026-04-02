@@ -1,4 +1,7 @@
-﻿#include "DetectorConstruction.hh"
+#include "DetectorConstruction.hh"
+
+#include <algorithm>
+#include <cmath>
 
 #include "G4Box.hh"
 #include "G4Element.hh"
@@ -9,7 +12,27 @@
 #include "G4SystemOfUnits.hh"
 #include "G4Tubs.hh"
 
-RF1105DetectorConstruction::RF1105DetectorConstruction() : crystal_logical_(nullptr) {}
+namespace {
+
+double ComputeWorldHalfHeightM(const RF1105SimulationConfig& config) {
+  if (!config.IsDownwardTgfMode()) {
+    return 0.0;
+  }
+  return std::max(config.world_half_height_m, config.source_altitude_m + 1.0);
+}
+
+double ComputeWorldHalfWidthM(const RF1105SimulationConfig& config) {
+  if (!config.IsDownwardTgfMode()) {
+    return 0.0;
+  }
+  const auto cone_radius_m = config.source_altitude_m * std::tan(config.cone_half_angle_deg * deg);
+  return std::max(config.world_half_width_m, cone_radius_m + 1.0);
+}
+
+}  // namespace
+
+RF1105DetectorConstruction::RF1105DetectorConstruction(const RF1105SimulationConfig& config)
+    : config_(config), crystal_logical_(nullptr) {}
 
 G4VPhysicalVolume* RF1105DetectorConstruction::Construct() {
   auto* nist = G4NistManager::Instance();
@@ -29,8 +52,13 @@ G4VPhysicalVolume* RF1105DetectorConstruction::Construct() {
   mgo->AddElement(magnesium, 1);
   mgo->AddElement(oxygen, 1);
 
-  constexpr auto world_half_length = 150.0 * mm;
-  auto* world_solid = new G4Box("WorldSolid", world_half_length, world_half_length, world_half_length);
+  auto world_half_width = 150.0 * mm;
+  auto world_half_height = 150.0 * mm;
+  if (config_.IsDownwardTgfMode()) {
+    world_half_width = ComputeWorldHalfWidthM(config_) * m;
+    world_half_height = ComputeWorldHalfHeightM(config_) * m;
+  }
+  auto* world_solid = new G4Box("WorldSolid", world_half_width, world_half_width, world_half_height);
   auto* world_logical = new G4LogicalVolume(world_solid, air, "WorldLogical");
   auto* world_physical =
       new G4PVPlacement(nullptr, {}, world_logical, "WorldPhysical", nullptr, false, 0, true);
