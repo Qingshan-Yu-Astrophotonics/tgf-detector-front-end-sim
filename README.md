@@ -1,4 +1,4 @@
-# RF1105 3-Step Cascade Simulation MVP
+ï»¿# RF1105 3-Step Cascade Simulation MVP
 
 ## Scope
 This repository provides a minimal, loose-coupled MVP for the cascade
@@ -20,13 +20,13 @@ An optional exploratory netlist, `spice_sim/toy_internal_stage.cir`, is included
 ## Repository Layout
 ```text
 .
-©À©¤©¤ config.yaml
-©À©¤©¤ requirements.txt
-©À©¤©¤ README.md
-©À©¤©¤ geant4_sim/
-©À©¤©¤ python_engine/
-©À©¤©¤ spice_sim/
-©¸©¤©¤ examples/
+|-- config.yaml
+|-- requirements.txt
+|-- README.md
+|-- geant4_sim/
+|-- python_engine/
+|-- spice_sim/
+`-- examples/
 ```
 
 ## Stage 1: Geant4
@@ -232,3 +232,4 @@ The referenced detector report indicates Cs-137 energy resolution on the order o
 - The Python stage uses a black-box transfer from anode current to external module voltage.
 - The default SPICE stage starts at the detector-module output connector, not inside the module.
 - The optional toy internal-stage netlist is exploratory only.
+
