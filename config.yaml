@@ -28,9 +28,9 @@ geometry:
 
 python_engine:
   rate_sweep_cps:
-    - 1.0e3
-    - 1.0e4
     - 1.0e5
+    - 5.0e5
+    - 1.0e6
   default_rate_cps: 1.0e4
   simulation_window_us: 5000.0
   sample_period_ns: 10.0
