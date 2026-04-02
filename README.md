@@ -54,7 +54,7 @@ cmake --build build/geant4 --config Release
 
 ### Run
 ```bash
-./build/geant4/rf1105_geant4 20000 examples/generated/edep_events.csv
+ ./build/geant4/Release/rf1105_geant4 20000 examples/generated/edep_events.csv
 ```
 
 The first argument is the number of Geant4 events. The second argument is the CSV output path.
