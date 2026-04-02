@@ -129,10 +129,10 @@ pip install -r requirements.txt
 Legacy Poisson timing example:
 
 ```bash
-python python_engine/pulse_synthesizer.py \
-  --config config.yaml \
-  --input examples/generated/edep_events.csv \
-  --output-root python_engine/output \
+python python_engine/pulse_synthesizer.py
+  --config config.yaml
+  --input examples/generated/edep_events.csv
+  --output-root python_engine/output
   --all-rates
 ```
 
@@ -143,9 +143,9 @@ Externally timed burst example:
 3. Run:
 
 ```bash
-python python_engine/pulse_synthesizer.py \
-  --config config.yaml \
-  --input examples/generated/edep_events.csv \
+python python_engine/pulse_synthesizer.py
+  --config config.yaml
+  --input examples/generated/edep_events.csv
   --output-root python_engine/output
 ```
 

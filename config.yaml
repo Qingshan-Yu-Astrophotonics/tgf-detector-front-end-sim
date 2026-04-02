@@ -15,15 +15,15 @@ anode_output_polarity: positive
 dynode_output_polarity: positive
 
 physics:
-  source_mode: lab_mono
+  source_mode: downward_tgf_mvp
   source_energy_keV: 662.0
   primary_particle: gamma
   events_for_demo: 20000
 
 tgf_source:
-  enabled: false
+  enabled: true
   source_altitude_m: 1000.0
-  cone_half_angle_deg: 15.0
+  cone_half_angle_deg: 5.0
   spectrum_model: expcut_powerlaw
   alpha: 1.0
   Ec_MeV: 7.3
