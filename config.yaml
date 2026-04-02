@@ -22,14 +22,14 @@ physics:
 
 tgf_source:
   enabled: true
-  source_altitude_m: 1000.0
+  source_altitude_m: 10.0
   cone_half_angle_deg: 5.0
   spectrum_model: expcut_powerlaw
   alpha: 1.0
   Ec_MeV: 7.3
   Emin_MeV: 0.2
   Emax_MeV: 40.0
-  burst_duration_us: 100.0
+  burst_duration_us: 500.0
   timing_mode: none
   world_half_height_m: 2.0
   world_half_width_m: 0.5
