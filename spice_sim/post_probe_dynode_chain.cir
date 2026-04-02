@@ -1,0 +1,38 @@
+﻿* RF1105 post-probe dynode receiver chain
+* Scope: external fast-output exploration only.
+* Default assumes the dynode path may be observed with a 50 ohm termination.
+*
+* Expected input:
+*   ../python_engine/output/rate_10000_cps/probe_dynode_output_voltage.pwl
+* Enable dynode output generation in config.yaml before using this netlist.
+*
+.option plotwinsize=0
+.param RSRC=50
+.param COUT=8p
+.param RLOAD=50
+.param CAC=10n
+.param RBIAS=50k
+.param GAIN=2
+.param RFAST=220
+.param CFAST=22p
+.param RDISC=1k
+.param CDISC=5p
+.param TSTOP=500u
+.param TMAX=5n
+
+VDET vin_src 0 PWL FILE="../python_engine/output/rate_10000_cps/probe_dynode_output_voltage.pwl"
+Rsrc vin_src vin {RSRC}
+Cout vin 0 {COUT}
+Rload vin 0 {RLOAD}
+
+Cac vin fast_in {CAC}
+Rbias fast_in 0 {RBIAS}
+Ebuf buf 0 fast_in 0 {GAIN}
+Rfast buf discr_in {RFAST}
+Cfast discr_in 0 {CFAST}
+Rdisc discr_in 0 {RDISC}
+Cdisc discr_in 0 {CDISC}
+
+.tran 0 {TSTOP} 0 {TMAX}
+.save V(vin) V(fast_in) V(buf) V(discr_in)
+.end

@@ -1,0 +1,35 @@
+﻿* Exploratory only: non-faithful toy internal stage
+* This file is for learning and sensitivity studies only.
+* It does NOT claim to reproduce the RF1105 vendor circuitry.
+*
+* Input:
+*   ../python_engine/output/rate_10000_cps/anode_current.pwl
+* Supply:
+*   -12 V rail included to remain consistent with detector documentation.
+*
+.option plotwinsize=0
+.param RTRANS=1.5k
+.param CANODE=8p
+.param CCOUP=22n
+.param RBIAS=100k
+.param GAIN=3
+.param RLOAD=10k
+.param CLOAD=220p
+.param TSTOP=5m
+.param TMAX=10n
+
+VNEG vneg 0 -12
+IANN anode 0 PWL FILE="../python_engine/output/rate_10000_cps/anode_current.pwl"
+Rtrans anode 0 {RTRANS}
+Canode anode 0 {CANODE}
+
+* Toy AC-coupled gain stage referenced to the negative rail.
+Ccouple anode toy_in {CCOUP}
+Rbias toy_in vneg {RBIAS}
+Etoy toy_out 0 toy_in vneg {GAIN}
+Rload toy_out 0 {RLOAD}
+Cload toy_out 0 {CLOAD}
+
+.tran 0 {TSTOP} 0 {TMAX}
+.save I(IANN) V(anode) V(toy_in) V(toy_out)
+.end

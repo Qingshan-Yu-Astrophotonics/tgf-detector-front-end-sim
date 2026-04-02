@@ -1,0 +1,54 @@
+﻿* RF1105 post-probe anode receiver chain
+* Scope: external electronics only.
+* This netlist does not reconstruct the vendor's internal divider or internal preamp.
+*
+* Expected input:
+*   ../python_engine/output/rate_10000_cps/probe_anode_output_voltage.pwl
+* You can also point this to any generated example output directory.
+*
+* For LTspice:
+*   1. Open this file.
+*   2. Edit the PWL path below if needed.
+*   3. Run the transient analysis.
+*
+* For ngspice:
+*   ngspice post_probe_anode_chain.cir
+*
+.option plotwinsize=0
+.param RSRC=50
+.param COUT=15p
+.param RLOAD=1e9
+.param CAC=100n
+.param RBIAS=1Meg
+.param GAIN=4
+.param RSHAPE=2.2k
+.param CSHAPE=100p
+.param RADC=1Meg
+.param CADC=10p
+.param TSTOP=5m
+.param TMAX=10n
+
+VDET vin_src 0 PWL FILE="../python_engine/output/rate_10000_cps/probe_anode_output_voltage.pwl"
+Rsrc vin_src vin {RSRC}
+Cout vin 0 {COUT}
+Rload vin 0 {RLOAD}
+
+* AC coupling into a high-impedance receiver front-end.
+Cac vin ac_in {CAC}
+Rbias ac_in 0 {RBIAS}
+
+* Ideal voltage gain/buffer for a minimal receiver model.
+Ebuf buf 0 ac_in 0 {GAIN}
+Rbuf buf shape_in 1
+
+* Optional RC shaper before the ADC model.
+Rshape shape_in adc_in {RSHAPE}
+Cshape adc_in 0 {CSHAPE}
+
+* Simple ADC input model.
+Radc adc_in 0 {RADC}
+Cadc adc_in 0 {CADC}
+
+.tran 0 {TSTOP} 0 {TMAX}
+.save V(vin) V(ac_in) V(buf) V(adc_in)
+.end
