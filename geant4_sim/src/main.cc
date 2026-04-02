@@ -2,8 +2,8 @@
 
 #include "ActionInitialization.hh"
 #include "DetectorConstruction.hh"
+#include "PhysicsList.hh"
 
-#include "G4EmStandardPhysics.hh"
 #include "G4RunManagerFactory.hh"
 
 int main(int argc, char** argv) {
@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 
   auto* run_manager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Serial);
   run_manager->SetUserInitialization(new RF1105DetectorConstruction());
-  run_manager->SetUserInitialization(new G4EmStandardPhysics());
+  run_manager->SetUserInitialization(new RF1105PhysicsList());
   run_manager->SetUserInitialization(new RF1105ActionInitialization(output_path));
   run_manager->Initialize();
   run_manager->BeamOn(n_events);

@@ -15,6 +15,7 @@ add_executable(
   src/ActionInitialization.cc
   src/DetectorConstruction.cc
   src/EventAction.cc
+  src/PhysicsList.cc
   src/PrimaryGeneratorAction.cc
   src/RunAction.cc
   src/SteppingAction.cc
