@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "cmake.sourceDirectory": "D:/VS_Repos/GitRepos/tgf-detector-front-end-sim/geant4_sim"
+=======
+    "cmake.sourceDirectory": "D:/GitRepos/tgf-detector-front-end-sim/geant4_sim"
+>>>>>>> 3d8e06fa1acdf1e8a96c4abca5041a8b5c9712ff
 }

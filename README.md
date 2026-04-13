@@ -65,7 +65,7 @@ cmake --build build/geant4 --config Release
 The executable still accepts the same two positional arguments as before:
 
 ```bash
-./build/geant4/Release/rf1105_geant4 20000 examples/generated/edep_events.csv
+./build/geant4/Release/rf1105_geant4 50000 examples/generated/edep_events.csv
 ```
 
 The first argument is the number of Geant4 events. The second argument is the CSV output path. An optional third argument can be used to point at a non-default config file.
@@ -73,7 +73,7 @@ The first argument is the number of Geant4 events. The second argument is the CS
 Legacy lab example:
 
 ```bash
-./build/geant4/Release/rf1105_geant4 20000 examples/generated/edep_events.csv
+./build/geant4/Release/rf1105_geant4 50000 examples/generated/edep_events.csv
 ```
 
 Downward TGF example:
@@ -82,7 +82,7 @@ Downward TGF example:
 2. Run the same command:
 
 ```bash
-./build/geant4/Release/rf1105_geant4 20000 examples/generated/edep_events.csv
+./build/geant4/Release/rf1105_geant4 50000 examples/generated/edep_events.csv
 ```
 
 For quick local TGF tests, use a smaller `source_altitude_m`, a narrower `cone_half_angle_deg`, or a larger event count. A kilometer-altitude source with a wide cone is intentionally sparse at a single small detector.

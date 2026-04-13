@@ -18,7 +18,7 @@ physics:
   source_mode: downward_tgf_mvp
   source_energy_keV: 662.0
   primary_particle: gamma
-  events_for_demo: 20000
+  events_for_demo: 50000
 
 tgf_source:
   enabled: true
